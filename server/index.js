@@ -41,7 +41,8 @@ app.get('/', (req,res) => {
 
 app.post('/new', (req,res) => {
     var resp = req.body // making use of bodyParser
-    con.query("INSERT into users VALUES (" + resp['id'] + ",'" + resp['name'] + "','" + resp['email'] + "','" + resp['item'] + "'," + resp['amount'] + ",'" + resp['status'] + "')" , (err, result) => {
+    // con.query("INSERT into users VALUES (" + resp['id'] + ",'" + resp['name'] + "','" + resp['email'] + "','" + resp['item'] + "'," + resp['amount'] + ",'" + resp['status'] + "')" , (err, result) => {
+    con.query("Insert into " + tbl + " VALUES (?,?,?,?,?,?)", [req.body.id,req.body.name,req.body.email,req.body.item,req.body.amount,req.body.status] , (err,result) => {
         res.status(200)
         res.setHeader('Content-Type','application/json')
         res.end(JSON.stringify(result))
